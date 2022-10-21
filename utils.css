@@ -1,0 +1,17 @@
+nav ul li a:hover {
+  color: rgb(233, 155, 10);
+}
+@media screen and (max-width: 1024px) {
+    .detel {
+      margin-top: 15%;
+    }
+    .pic img{
+        display:none;
+    }
+  }
+@media screen and(max-width:600px){
+  header{
+    box-shadow: none;
+  }
+}
+  
