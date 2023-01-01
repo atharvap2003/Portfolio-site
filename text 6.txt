@@ -1,0 +1,169 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+struct treeNode
+{
+    int data;
+    treeNode *left;
+    treeNode *right;
+};
+treeNode *Insert(treeNode *node, int data)
+{
+    if (node == NULL)
+    {
+        treeNode *temp;
+        temp = new treeNode;
+        temp->data = data;
+        temp->left = temp->right = NULL;
+        return temp;
+    }
+    if (data > (node->data))
+    {
+        node->right = Insert(node->right, data);
+    }
+    else if (data < (node->data))
+    {
+        node->left = Insert(node->left, data);
+    }
+    return node;
+}
+
+treeNode *FindMin(treeNode *node)
+{
+    if (node == NULL)
+    {
+        return NULL;
+    }
+    if (node->left)
+    {
+        return FindMin(node->left);
+    }
+    else
+    {
+        return node;
+    }
+}
+
+treeNode *Find(treeNode *node, int data)
+{
+    if (node == NULL)
+    {
+        return NULL;
+    }
+    if (data > node->data)
+    {
+        return Find(node->right, data);
+    }
+    else if (data < node->data)
+    {
+        return Find(node->left, data);
+    }
+    else
+    {
+        return node;
+    }
+}
+
+void Inorder(treeNode *node)
+{
+    if (node == NULL)
+    {
+        return;
+    }
+    Inorder(node->left);
+    cout << node->data << " ";
+    Inorder(node->right);
+}
+
+void Preorder(treeNode *node)
+{
+    if (node == NULL)
+    {
+        return;
+    }
+    cout << node->data << " ";
+    Preorder(node->left);
+    Preorder(node->right);
+}
+
+void Postorder(treeNode *node)
+{
+    if (node == NULL)
+    {
+        return;
+    }
+    Postorder(node->left);
+    Postorder(node->right);
+    cout << node->data;
+}
+
+treeNode *FindMax(treeNode *node)
+{
+    if (node == NULL)
+    {
+        return NULL;
+    }
+    if (node->right)
+    {
+        return FindMax(node->right);
+    }
+    else
+    {
+        return node;
+    }
+}
+
+int main()
+{
+    treeNode *root = NULL, *temp;
+    int ch;
+    cout << "1.Insert \n2.Search \n3.Find Maximum \n4.Find Minimum \n5.Preorder Traversal in Tree \n6.Postorder Traversal in Tree \n7.Inorder Traversal in Tree" << endl;
+    while (1)
+    {
+        cout << "\nEnter your choice: ";
+        cin >> ch;
+        switch (ch)
+        {
+        case 1:
+            cout << "Enter element to Insert:";
+            cin >> ch;
+            root = Insert(root, ch);
+            cout << "Inserted: " << ch << endl;
+            // cout << "Elements in you tree are \n";
+            // Inorder(root);
+            break;
+        case 2:
+            cout << "\nEnter number you want to search \n";
+            cin >> ch;
+            root = Find(root, ch);
+            if (temp == NULL)
+            {
+                cout << "element not found \n";
+            }
+            else
+            {
+                cout << "elemte present \n";
+            }
+            break;
+        case 3:
+            temp = FindMax(root);
+            cout << "\n Max element is: " << temp->data;
+            break;
+        case 4:
+            temp = FindMin(root);
+            cout << "\n Min element is: " << temp->data;
+            break;
+        case 5:
+            Preorder(root);
+            break;
+        case 6:
+            Postorder(root);
+            break;
+        case 7:
+            Inorder(root);
+            break;
+        }
+    }
+
+    return 0;
+}
